@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,13 +24,10 @@ fun KeypadButton(
     text: String,
     onClick: () -> Unit
 ) {
-    Button(
+    TextButton(
         onClick = {
             onClick()
         },
-        elevation = ButtonDefaults.elevatedButtonElevation(
-            pressedElevation = 4.dp
-        ),
         modifier = Modifier
             .width(60.dp)
             .height(60.dp)

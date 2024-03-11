@@ -18,21 +18,21 @@ class CalculatorModel {
     }
 
     private fun appendNumber(number: Int) {
-        displayState.value = displayState.value.copy(
-            displayText = displayState.value.displayText + number.toString()
-        )
+        val currentChars = displayState.value.displayText.toMutableList()
+        currentChars.add(number.toString().single())
+        displayState.value = displayState.value.copy(displayText = currentChars.toCharArray())
     }
 
     private fun deleteLastCharacter() {
-        if (displayState.value.displayText.isNotEmpty()) {
-            displayState.value = displayState.value.copy(
-                displayText = displayState.value.displayText.dropLast(1)
-            )
+        val currentChars = displayState.value.displayText.toMutableList()
+        if (currentChars.isNotEmpty()) {
+            currentChars.removeAt(currentChars.size - 1)
+            displayState.value = displayState.value.copy(displayText = currentChars.toCharArray())
         }
     }
 
     private fun clearDisplay() {
-        displayState.value = displayState.value.copy(displayText = "")
+        displayState.value = displayState.value.copy(displayText = charArrayOf())
     }
 
     fun observeDisplayState(): MutableState<DisplayState> = displayState

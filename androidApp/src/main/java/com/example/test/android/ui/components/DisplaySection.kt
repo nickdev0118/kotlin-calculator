@@ -1,6 +1,8 @@
 package com.example.test.android.ui.components
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.SizeTransform
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -37,17 +39,50 @@ fun DisplaySection(displayState: DisplayState) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(105.dp)
+            .height(200.dp)
             .background(Color.LightGray)
             .padding(30.dp),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.CenterStart
     ) {
+//        displayState.displayText.forEachIndexed { index, item ->
+//            AnimatedContent(
+//                targetState = displayState.displayText,
+//                transitionSpec = {
+//                if(1 == 0) {
+//                    (fadeIn(animationSpec = tween(220, delayMillis = 90)) +             scaleIn(initialScale = 0.92f, animationSpec = tween(220, delayMillis = 90)))             .togetherWith(fadeOut(animationSpec = tween(90)))
+//                } else if (targetState.contentEquals(initialState)) {
+//                    println("this is first")
+//                    slideInVertically { height -> height } + fadeIn(animationSpec = tween(200, delayMillis = 90)) togetherWith
+//                            slideOutVertically { height -> -height } + fadeOut(animationSpec = tween(200, delayMillis = 90))
+//                } else {
+//                    println("this is second")
+//                    slideInVertically { height -> -height } + fadeIn(animationSpec = tween(200, delayMillis = 90)) togetherWith
+//                            slideOutVertically { height -> height } + fadeOut(animationSpec = tween(200, delayMillis = 90))
+//                }
+//            }
+//            ) {
+//                targetState ->
+//                var char_1 = targetState[index]
+//
+//                Text(
+//                    text = "$targetState",
+//                    color = Color.Black,
+//                    fontSize = 40.sp,
+//                    textAlign = TextAlign.Center,
+//                    maxLines = 1,
+//                    overflow = TextOverflow.Ellipsis,
+//                    modifier = Modifier
+//                        .background(Color.LightGray)
+//                        .padding(10.dp)
+//                )
+//            }
+//        }
         AnimatedContent(
-            targetState = displayState.displayText,
+            targetState = displayState.displayText.toList(),
             transitionSpec = {
-                if(targetState == "") {
+                if(targetState.isEmpty()) {
                     (fadeIn(animationSpec = tween(220, delayMillis = 90)) +             scaleIn(initialScale = 0.92f, animationSpec = tween(220, delayMillis = 90)))             .togetherWith(fadeOut(animationSpec = tween(90)))
-                } else if (targetState > initialState) {
+                } else if (targetState.size > initialState.size) {
                     slideInVertically { height -> height } + fadeIn(animationSpec = tween(200, delayMillis = 90)) togetherWith
                             slideOutVertically { height -> -height } + fadeOut(animationSpec = tween(200, delayMillis = 90))
                 } else {
@@ -74,5 +109,5 @@ fun DisplaySection(displayState: DisplayState) {
 @Preview
 @Composable
 fun PreviewDisplaySection() {
-    DisplaySection(DisplayState("12345"))
+    DisplaySection(DisplayState(charArrayOf('1', '2', '3', '4', '5')))
 }
